@@ -1,18 +1,16 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
-  var Course = sequelize.define("Course", {
+module.exports = function(sequelize, DataTypes){
+  var Chapter = sequelize.define('Chapter',{
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-    cpd: DataTypes.INTEGER,
     published: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
-        Course.hasMany(models.Chapter);
+        Chapter.belongsTo(models.Course);
       }
     }
   });
-
-  return Course;
+  return Chapter;
 };
