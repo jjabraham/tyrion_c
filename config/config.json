@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "tyrion",
+    "password": "cpd",
+    "database": "tyrion_c",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "tyrion",
+    "password": "cpd",
+    "database": "tyrion_c",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "tyrion",
+    "password": "cpd",
+    "database": "tyrion_c",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
