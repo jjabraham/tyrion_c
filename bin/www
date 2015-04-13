@@ -25,7 +25,12 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
- models.sequelize.sync().then(function () {
+if (app.get('env')=== 'migrate'){
+  var force = {force: true};
+} else {
+  var force = '';
+}
+models.sequelize.sync(force).then(function () {
   server.listen(port, function() {
     console.log("Express server started on http://localhost:"+ server.address().port);
   });
