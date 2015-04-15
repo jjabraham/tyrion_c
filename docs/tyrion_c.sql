@@ -21,6 +21,15 @@ SET time_zone = "+00:00";
 --
 
 --
+-- Dumping data for table `Courses`
+--
+
+INSERT INTO `Courses` (`id`, `name`, `description`, `cpd`, `published`, `createdAt`, `updatedAt`) VALUES
+(1, 'test1', 'test test', 5, 1, '2015-04-13 00:00:00', '2015-04-13 00:00:00'),
+(2, 'course2', 'Description of course', 5, 1, '2015-04-14 00:00:00', '2015-04-14 00:00:00'),
+(3, 'course3', 'Description of course', 5, 0, '2015-04-14 01:00:00', '2015-04-14 01:00:00');
+
+--
 -- Dumping data for table `Chapters`
 --
 
@@ -29,14 +38,6 @@ INSERT INTO `Chapters` (`id`, `name`, `description`, `published`, `createdAt`, `
 (2, 'Chapter test2', 'chapter', 1, '2015-04-13 00:00:00', '2015-04-13 00:00:00', 1),
 (3, 'Chapter test3', 'chapter', 0, '2015-04-13 00:00:00', '2015-04-13 00:00:00', 1);
 
---
--- Dumping data for table `Courses`
---
-
-INSERT INTO `Courses` (`id`, `name`, `description`, `cpd`, `published`, `createdAt`, `updatedAt`) VALUES
-(1, 'test1', 'test test', 5, 1, '2015-04-13 00:00:00', '2015-04-13 00:00:00'),
-(2, 'course2', 'Description of course', 5, 1, '2015-04-14 00:00:00', '2015-04-14 00:00:00'),
-(3, 'course3', 'Description of course', 5, 0, '2015-04-14 01:00:00', '2015-04-14 01:00:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

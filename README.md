@@ -3,6 +3,7 @@ course site with flux+react+express+node+sequelize
 
 Gameplan:
 ---------
+**Try TDD (mocha + chai)
 
 **Finalize basic concepts**
 - DONE: Develop multi-table models (eg get course+chapters)
