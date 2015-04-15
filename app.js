@@ -5,8 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//import routes
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var courses = require('./routes/courses');
 
 var app = express();
@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//use routes
 app.use('/', routes);
 app.use('/api/courses', courses);
-app.use('/api/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,6 +33,19 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+//API wide params
+app.param('course_id', function(req, res, next, val){
+  var fn = /^\d+$/;
+  var captures;
+  if (captures = fn.exec(String(val))) {
+    req.params['course_id'] = captures;
+    next();
+  } else {
+    next(new Error('Invalid format for course_id'));
+  }
+});
+
 
 // error handlers
 
