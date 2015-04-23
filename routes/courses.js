@@ -7,11 +7,11 @@ router.param('course_id', function(req, res, next, val){
   var fn = /^\d+$/;
   var captures;
   if (captures = fn.exec(String(val))) {
-    req.params['course_id'] = captures;
+    req.params.course_id = captures;
     next();
   } else {
     // next(new Error('Invalid format for course_id (routes)'));
-    res.json({error:"Invalid format for course_id"})
+    res.json({error:"Invalid format for course_id"});
   }
 });
 
@@ -22,7 +22,7 @@ router.get('/:course_id', function(req, res, next) {
     where: { id: req.params.course_id }
   }).then(function(course){
     console.log(course);
-    (course === null) ? res.json({error:"nodata"}) : res.json(course);
+    (course === null) ? res.json({}) : res.json(course);
   });
 });
 
@@ -32,7 +32,7 @@ router.get('/:course_id/full', function(req, res, next) {
     where: { id: req.params.course_id }
   }).then(function(course){
     courseDetails.course = course;
-    if (course === null) res.json({error:"nodata"});
+    if (course === null) res.json({});
     models.Chapter.findAll({
       where : {CourseId: course.id, published: 1}
     }).then(function(chapters){
@@ -46,7 +46,7 @@ router.route('/')
     models.Course.findAll({
       where: { published: 1 }
     }).then(function(courses){
-      (courses === null) ? res.json({error:"nodata"}) : res.json(courses);
+      (courses === null) ? res.json({}) : res.json(courses);
     });
   })
   .post(function(req, res) {
