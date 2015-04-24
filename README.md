@@ -9,9 +9,9 @@ Gameplan:
 - Secure api calls - authorization
 - DONE: Develop multi-table models (eg get course+chapters)
 - DONE: Ensure proper responses when no data found
-- DONE: JSON error respnses for api calls only. Normal HTML responses for others.
+- DONE: JSON error responses for api calls only. Normal HTML responses for others.
 - LATER: Specify parameter validation centrally - is this possible?
-- LATER: centralise error JSON object creation
+- LATER: centralize error JSON object creation
 - LATER: node-config to handle configuration ??? current system seems fine. consider if more functionality required
 
 **Flesh out the API**
