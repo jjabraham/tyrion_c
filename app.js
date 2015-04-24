@@ -23,7 +23,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//use routes
+app.all('/api/*', function(req, res, next) {
+  // CORS headers
+  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  // Set custom headers for CORS
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+  if (req.method == 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
+  }
+});
+app.all('/api/*', [require('./middleware/validateRequest')]);
+
+
+//****** routes ***************
 app.use('/', routes);
 app.use('/api/courses', courses);
 
@@ -33,19 +48,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-//API wide params
-app.param('course_id', function(req, res, next, val){
-  var fn = /^\d+$/;
-  var captures;
-  if (captures = fn.exec(String(val))) {
-    req.params['course_id'] = captures;
-    next();
-  } else {
-    next(new Error('Invalid format for course_id'));
-  }
-});
-
+//****** end routes ******************
 
 // error handlers
 
@@ -54,9 +57,9 @@ app.param('course_id', function(req, res, next, val){
 if (app.get('env') === 'development' || app.get('env') === 'migration') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
       message: err.message,
-      error: err
+      error: err.status || 500
     });
   });
 }

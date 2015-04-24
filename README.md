@@ -6,7 +6,11 @@ Gameplan:
 
 **Finalize basic concepts**
 - Secure api calls - authentication
+  - add user model
+  - n-m relation with chapter model
 - Secure api calls - authorization
+  - add role model
+  - n-m relation with user model
 - DONE: Develop multi-table models (eg get course+chapters)
 - DONE: Ensure proper responses when no data found
 - DONE: JSON error responses for api calls only. Normal HTML responses for others.
