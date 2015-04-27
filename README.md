@@ -5,7 +5,10 @@ Gameplan:
 ---------
 
 **Finalize basic concepts**
-- Secure api calls - authentication
+- test POST routes
+- test PUT routes
+- test DELETE routes
+- Secure api calls - authentication (jwt )
   - add user model
   - n-m relation with chapter model
 - Secure api calls - authorization
