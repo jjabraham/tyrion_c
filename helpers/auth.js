@@ -4,7 +4,7 @@
 var jwt = require('jwt-simple');
 var env = process.env.NODE_ENV || "development";
 var config = require(__dirname + '/../config/config.json')[env];
-
+var user  = require('../models/user');
 var auth = {
 
   login: function(req, res) {
@@ -43,6 +43,7 @@ var auth = {
 
   },
 
+  //initial login validation with username & password
   validate: function(username, password) {
     // spoofing the DB response for simplicity
     var dbUserObj = { // spoofing a userobject from the DB.
@@ -54,6 +55,7 @@ var auth = {
     return dbUserObj;
   },
 
+  //validation for api calls using the token
   validateUser: function(username) {
     // spoofing the DB response for simplicity
     var dbUserObj = { // spoofing a userobject from the DB.
@@ -66,9 +68,8 @@ var auth = {
   },
 };
 
-// private method
 function genToken(user) {
-  var expires = expiresIn(config.jwtexpire); // 1 days
+  var expires = expiresIn(config.jwtexpire);
   var token = jwt.encode({
     exp: expires
   }, config.jwtsecret);
@@ -80,9 +81,10 @@ function genToken(user) {
   };
 }
 
-function expiresIn(numDays) {
+function expiresIn(numSeconds) {
   var dateObj = new Date();
-  return dateObj.setDate(dateObj.getDate() + numDays);
+  var newTime = parseInt(dateObj.getTime()) + (parseInt(numSeconds) * 1000);
+  return dateObj.setTime(newTime);
 }
 
 module.exports = auth;

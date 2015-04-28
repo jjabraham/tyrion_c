@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         User.belongsToMany(models.Chapter, {through: models.ChaptersUsers});
         User.belongsToMany(models.Course, {through: models.CoursesUsers});
       }
+      //TODO: can we perform password hashing and comparing here?
     }
   });
 
