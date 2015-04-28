@@ -5,6 +5,7 @@ Gameplan:
 ---------
 
 **Finalize basic concepts**
+- fix "Using 2 x hasMany to represent N:M relations has been deprecated. Please use belongsToMany instead"
 - test POST routes
 - test PUT routes
 - test DELETE routes
@@ -28,3 +29,6 @@ Gameplan:
 
 **Develop front end**
 - react + fulxxor (or any other flux implementation)
+- ember
+- aurelia (wait for stable release)
+- angular 2.0

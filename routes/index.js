@@ -14,7 +14,7 @@ router.post('/login', function(req, res, next) {
   console.log('req', req);
   console.log('res', res);
   auth.login(req, res);
-  //res.json({ message: 'POST courses endpoint works' });
+  // res.json({ message: 'POST courses endpoint works' });
 });
 
 module.exports = router;

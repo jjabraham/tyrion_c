@@ -32,19 +32,13 @@ router.get('/:course_id/full', function(req, res, next) {
   models.Course.find({
     where: {
       id: req.params.course_id,
-      $not: [{published: 0}] }
+      $not: [{published: 0}] },
+    include: [models.Chapter]
   }).then(function(course){
-    console.log("course full", course);
-    courseDetails.course = course;
     if (course === null) {
       res.json({});
     } else {
-      models.Chapter.findAll({
-        where : {CourseId: course.id, published: 1}
-      }).then(function(chapters){
-        courseDetails.chapters = chapters;
-        res.json(courseDetails);
-      });
+      res.json(course);
     }
   });
 });

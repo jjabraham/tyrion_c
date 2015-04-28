@@ -36,10 +36,8 @@ var auth = {
     }
 
     if (dbUserObj) {
-
       // If authentication is success, we will generate a token
       // and dispatch it to the client
-
       res.json(genToken(dbUserObj));
     }
 
@@ -70,7 +68,7 @@ var auth = {
 
 // private method
 function genToken(user) {
-  var expires = expiresIn(1); // 1 days
+  var expires = expiresIn(config.jwtexpire); // 1 days
   var token = jwt.encode({
     exp: expires
   }, config.jwtsecret);

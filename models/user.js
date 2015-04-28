@@ -3,15 +3,19 @@
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
-    active: DataTypes.INTEGER
+    username: {type: DataTypes.STRING, unique: true},
+    password: {type: DataTypes.STRING, allowNull: false},
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {isEmail: true}
+    },
+    active: {type: DataTypes.INTEGER, allowNull: false}
   }, {
     classMethods: {
       associate: function(models) {
-        User.hasMany(models.Chapter);
-        User.hasMany(models.Course);
+        User.belongsToMany(models.Chapter, {through: models.ChaptersUsers});
+        User.belongsToMany(models.Course, {through: models.CoursesUsers});
       }
     }
   });
