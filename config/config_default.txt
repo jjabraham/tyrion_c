@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "tyrion",
+    "password": "tyrion",
+    "database": "tyrion_c",
+    "host": "localhost",
+    "dialect": "mysql",
+    "jwtsecret": "Hitman123!",
+    "jwtexpire": "1"
+  },
+  "migration": {
+    "username": "tyrion",
+    "password": "tyrion",
+    "database": "tyrion_c",
+    "host": "localhost",
+    "dialect": "mysql",
+    "jwtsecret": "Hitman123!",
+    "jwtexpire": "1"
+  },
+  "production": {
+    "username": "tyrion",
+    "password": "tyrion",
+    "database": "tyrion_c",
+    "host": "localhost",
+    "dialect": "mysql",
+    "jwtsecret": "Hitman123!",
+    "jwtexpire": "1"
+  }
+}
