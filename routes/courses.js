@@ -37,8 +37,10 @@ router.get('/:course_id/full', function(req, res, next) {
   }).then(function(course){
     if (course === null) {
       res.json({});
+      return;
     } else {
       res.json(course);
+      return;
     }
   });
 });
@@ -62,7 +64,9 @@ router.route('/')
       //create course
       //use sequelize findOrCreate
       models.Course.create({name: name, description: description, cpd: cpd, published: published})
-        .then(function(course){res.json(course);});
+        .then(function(course){
+          res.json(course);
+        });
 
     }
 

@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 //import routes
 var routes = require('./routes/index');
 var courses = require('./routes/courses');
+var users = require('./routes/users');
 
 var app = express();
 app.set('env','migration');
@@ -43,6 +44,7 @@ app.all('/api/*', [require('./middleware/validateRequest')]);
 
 
 //****** routes ***************
+app.use('/register', users);
 app.use('/', routes);
 app.use('/api/courses', courses);
 
