@@ -16,10 +16,18 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.belongsToMany(models.Chapter, {through: models.ChaptersUsers});
         User.belongsToMany(models.Course, {through: models.CoursesUsers});
+      },
+      hashPassword: function(password) {
+        //TODO: imlement proper logic here
+        return '123';
       }
-      //TODO: can we perform password hashing and comparing here?
+    },
+    instanceMethods: {
+      checkPassword: function(password) {
+        //TODO: imlement proper logic here
+        return true;
+      }
     }
   });
-
   return User;
 };
