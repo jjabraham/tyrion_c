@@ -5,46 +5,50 @@ var jwt = require('jwt-simple');
 var env = process.env.NODE_ENV || "development";
 var config = require(__dirname + '/../config/config.json')[env];
 var models  = require('../models');
+var promise = require("bluebird");
 var auth = {
 
   //login: function(req, res) {
   login: function(username, password) {
+      models.User.find({ where: {username: username} })
+        .then(function(user) {
+          if (user !== null){
+            if (user.checkPassword(password)) {
+              console.log("password ok1", user.get({plain: true}));
+              return genToken(user);
+            } else {
+              console.log("password fail");
+              return false;
+            }
+          } else {
+            console.log("username fail");
+            return false;
+          }
+        });
+  },
 
-    // var username = req.body.username || '';
-    // var password = req.body.password || '';
-
-    //TODO: do this check in route
-    //TODO: remove all direct responses res.json. simply return values to the route
-    // if (username === '' || password === '') {
-    //   res.status(401);
-    //   res.json({
-    //     "status": 401,
-    //     "message": "Invalid credentials"
-    //   });
-    //   return;
-    // }
-
+  // a 'Nodeback' version of the login function to handle promise functionality
+  // of models.User.find()
+  loginNode: function(username, password, cb) {
+    var response = false;
     models.User.find({ where: {username: username} })
       .then(function(user) {
         if (user !== null){
           if (user.checkPassword(password)) {
-            console.log("password ok1", user.get({plain: true}));
-            return genToken(user);
+            response = genToken(user);
           } else {
-            console.log("password fail");
-            return false;
+            response = false;
           }
         } else {
-          console.log("username fail");
-          return false;
+          response = false;
         }
+        cb(null, response);
       });
   },
 
-
   //validation for api calls using the token
   validateUser: function(username) {
-    // spoofing the DB response for simplicity
+    // TODO: do a proper check here
     var dbUserObj = { // spoofing a userobject from the DB.
       name: 'arvind',
       role: 'admin',
@@ -52,7 +56,7 @@ var auth = {
     };
 
     return dbUserObj;
-  },
+  }
 };
 
 function genToken(user) {

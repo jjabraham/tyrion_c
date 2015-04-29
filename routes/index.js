@@ -3,8 +3,9 @@
 
 var express = require('express');
 var router = express.Router();
-var auth  = require('../helpers/auth');
-//var promise = require("bluebird");
+var promise = require("bluebird");
+// var auth  = promise.promisify(require('../helpers/auth').login);
+var loginAsync  = promise.promisify(require('../helpers/auth').loginNode);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -22,18 +23,33 @@ router.post('/login', function(req, res, next) {
     });
     return;
   }
-  var authResponse = auth.login(username, password);
-  console.log('authResponse', authResponse);
-  if (authResponse) {
-    res.json(authResponse);
-  } else {
-    res.status(401);
-    res.json({
-      "status": 401,
-      "message": "Invalid credentials2"
+  console.log('here', loginAsync);
+  // var authResponse = auth.login(username, password);
+  loginAsync(username, password)
+    .then(function(authResponse){
+      console.log('authResponse', authResponse);
+      if (authResponse) {
+        res.json(authResponse);
+      } else {
+        res.status(401);
+        res.json({
+          "status": 401,
+          "message": "Invalid credentials2"
+        });
+        return;
+      }
     });
-    return;
-  }
+  // console.log('authResponse', authResponse);
+  // if (authResponse) {
+  //   res.json(authResponse);
+  // } else {
+  //   res.status(401);
+  //   res.json({
+  //     "status": 401,
+  //     "message": "Invalid credentials2"
+  //   });
+  //   return;
+  // }
 });
 
 router.post('/register', function(req, res, next) {
