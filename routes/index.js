@@ -23,13 +23,11 @@ router.post('/login', function(req, res, next) {
     });
     return;
   }
-  console.log('here', loginAsync);
-  // var authResponse = auth.login(username, password);
+
   loginAsync(username, password)
-    .then(function(authResponse){
-      console.log('authResponse', authResponse);
-      if (authResponse) {
-        res.json(authResponse);
+    .then(function(loginResponse){
+      if (loginResponse) {
+        res.json(loginResponse);
       } else {
         res.status(401);
         res.json({
@@ -39,21 +37,6 @@ router.post('/login', function(req, res, next) {
         return;
       }
     });
-  // console.log('authResponse', authResponse);
-  // if (authResponse) {
-  //   res.json(authResponse);
-  // } else {
-  //   res.status(401);
-  //   res.json({
-  //     "status": 401,
-  //     "message": "Invalid credentials2"
-  //   });
-  //   return;
-  // }
-});
-
-router.post('/register', function(req, res, next) {
-  res.json({ message: 'duplicate register' });
 });
 
 module.exports = router;

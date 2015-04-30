@@ -44,8 +44,8 @@ app.all('/api/*', [require('./middleware/validateRequest')]);
 
 
 //****** routes ***************
-app.use('/register', users);
 app.use('/', routes);
+app.use('/register', users);
 app.use('/api/courses', courses);
 
 // catch 404 and forward to error handler
