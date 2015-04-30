@@ -4,10 +4,8 @@
 var express = require('express');
 var router = express.Router();
 var promise = require("bluebird");
-// var auth  = promise.promisify(require('../helpers/auth').login);
 var loginAsync  = promise.promisify(require('../helpers/auth').loginNode);
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });

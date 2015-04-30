@@ -8,7 +8,6 @@ var models  = require('../models');
 var promise = require("bluebird");
 var auth = {
 
-  //login: function(req, res) {
   login: function(username, password) {
       models.User.find({ where: {username: username} })
         .then(function(user) {
@@ -29,6 +28,7 @@ var auth = {
 
   // a 'Nodeback' version of the login function to handle promise functionality
   // of models.User.find()
+
   loginNode: function(username, password, cb) {
     var response = false;
     models.User.find({ where: {username: username} })
