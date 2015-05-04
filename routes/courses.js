@@ -53,7 +53,7 @@ router.route('/')
       (courses === null) ? res.json({}) : res.json(courses);
     });
   })
-  .post(function(req, res) {
+  .post(function(req, res, next){console.log('TODO: check roles here'); next();}, function(req, res) {
     var name = req.body.name;
     var description = req.body.description;
     var cpd = req.body.cpd;

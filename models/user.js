@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
       validate: {isEmail: true}
     },
+    role: {type: DataTypes.STRING},
     active: {type: DataTypes.INTEGER, allowNull: false}
   }, {
     classMethods: {
