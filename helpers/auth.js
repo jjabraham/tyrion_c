@@ -61,9 +61,10 @@ var auth = {
 
 function genToken(user) {
   var expires = expiresIn(config.jwtexpire);
-  console.log('expires in ',config.jwtexpire);
   var token = jwt.encode({
-    exp: expires
+    exp: expires,
+    username: user.username,
+    role: user.role
   }, config.jwtsecret);
 
   return {

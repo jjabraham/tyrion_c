@@ -4,6 +4,9 @@
 var models  = require('../models');
 var express = require('express');
 var router = express.Router();
+var env = process.env.NODE_ENV || "development";
+var config = require(__dirname + '/../config/config.json')[env];
+var jwt = require('jwt-simple');
 
 // validation rule for course_id: should be one or more digits
 router.param('course_id', function(req, res, next, val){
@@ -53,13 +56,23 @@ router.route('/')
       (courses === null) ? res.json({}) : res.json(courses);
     });
   })
-  .post(function(req, res, next){console.log('TODO: check roles here'); next();}, function(req, res) {
+  .post(
+    function(req, res, next){
+      //TODO: refactor this function into a helper
+      var decoded = jwt.decode(res.locals.authToken, config.jwtsecret);
+      if (decoded.role !== 'admin'){
+        res.status(401).json({error: 'Not authorised'});
+      } else {
+        next();
+      }
+    },
+    function(req, res) {
     var name = req.body.name;
     var description = req.body.description;
     var cpd = req.body.cpd;
     var published = req.body.published;
     if (!name || !description || !cpd || !published){
-      res.json({error: 'POST variable missing'});
+      res.status(400).json({error: 'POST variable missing'});
     } else {
       //create course
       //use sequelize findOrCreate

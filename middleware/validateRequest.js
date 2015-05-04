@@ -19,6 +19,8 @@ module.exports = function(req, res, next) {
   var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) || req.headers['x-key'];
   console.log("key",key);
   console.log("token",token);
+  res.locals.authKey = key;
+  res.locals.authToken = token;
   if (token || key) {
     try {
       var decoded = jwt.decode(token, config.jwtsecret);
@@ -30,7 +32,7 @@ module.exports = function(req, res, next) {
           "status": 400,
           "message": "Token Expired"
         });
-        return;
+        return false;
       }
 
       // Authorize the user to see if s/he can access our resources
