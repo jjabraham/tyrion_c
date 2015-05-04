@@ -14,7 +14,7 @@ router.route('/')
 
     //for now, set users as admin manually in the db
     var role = 'user';
-    
+
     if (!username || !password || !email || !active) {
       res.json({error: 'POST variable missing'});
       return;
@@ -25,7 +25,7 @@ router.route('/')
           return;
         })
         .catch(function(e){
-          res.json({error: e.errors[0].message});
+          res.status(400).json({error: e.errors[0].message});
           return;
         });
     }

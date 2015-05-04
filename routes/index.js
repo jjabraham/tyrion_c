@@ -14,10 +14,10 @@ router.post('/login', function(req, res, next) {
   var username = req.body.username || '';
   var password = req.body.password || '';
   if (username === '' || password === '') {
-    res.status(401);
+    res.status(400);
     res.json({
-      "status": 401,
-      "message": "Invalid credentials1"
+      "status": 400,
+      "message": "Missing credentials"
     });
     return;
   }
@@ -30,7 +30,7 @@ router.post('/login', function(req, res, next) {
         res.status(401);
         res.json({
           "status": 401,
-          "message": "Invalid credentials2"
+          "message": "Invalid credentials"
         });
         return;
       }

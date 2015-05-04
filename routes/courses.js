@@ -4,6 +4,8 @@
 var models  = require('../models');
 var express = require('express');
 var router = express.Router();
+
+// TODO: remove these if the authorization function is refactored to a helper file
 var env = process.env.NODE_ENV || "development";
 var config = require(__dirname + '/../config/config.json')[env];
 var jwt = require('jwt-simple');
@@ -57,11 +59,11 @@ router.route('/')
     });
   })
   .post(
+    //TODO: refactor this function into a helper and call it here
     function(req, res, next){
-      //TODO: refactor this function into a helper
       var decoded = jwt.decode(res.locals.authToken, config.jwtsecret);
       if (decoded.role !== 'admin'){
-        res.status(401).json({error: 'Not authorised'});
+        res.status(403).json({error: 'Not authorised'});
       } else {
         next();
       }
