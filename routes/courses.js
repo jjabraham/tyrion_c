@@ -33,7 +33,6 @@ router.get('/:course_id', function(req, res, next) {
 });
 
 router.get('/:course_id/full', function(req, res, next) {
-  var courseDetails = {course: {}, chapters: {}};
   models.Course.find({
     where: {
       id: req.params.course_id,

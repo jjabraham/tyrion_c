@@ -1,3 +1,4 @@
+/// <reference path="typings/node/node.d.ts"/>
 /*jslint node: true */
 "use strict";
 
